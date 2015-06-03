@@ -1,5 +1,5 @@
 {
-  "name": "myUtils",
+  "name": "@mtfe/myUtils",
   "version": "1.0.0",
   "description": "zhangyichi's personalUtils",
   "main": "browserUtil.js",
