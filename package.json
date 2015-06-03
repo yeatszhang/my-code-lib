@@ -1,0 +1,25 @@
+{
+  "name": "myUtils",
+  "version": "1.0.0",
+  "description": "zhangyichi's personalUtils",
+  "main": "browserUtil.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zyc429596631/myUtils.git"
+  },
+  "keywords": [
+    "util"
+  ],
+  "author": "zhangyichi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zyc429596631/myUtils/issues"
+  },
+  "homepage": "https://github.com/zyc429596631/myUtils",
+  "dependencies": {
+    "mocha": "^2.2.5"
+  }
+}
