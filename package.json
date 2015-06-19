@@ -4,7 +4,7 @@
   "description": "zhangyichi's personalUtils",
   "main": "browserUtil.js",
   "scripts": {
-    "test": "start"
+    "test": "mocha --compilers js:babel/register"
   },
   "repository": {
     "type": "git",
