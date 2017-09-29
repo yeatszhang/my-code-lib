@@ -9,12 +9,10 @@ export function safeOpen (url) {
  * @param value {string} 待写入的文件内容
  * @param name {string} 文件名
  * @param fileType {string} 文件后缀名
- * @param isString {boolean} 是否String类型，如果不是则调用JSON.stringify方法
- * @param type 字符编码  导入为excel默认编码应该是utf-16
+ * @param {string} type=text/plain;charset=utf-8 - 字符编码  导入为excel默认编码应该是utf-16
  */
-export function doSaveFile(value, name, fileType, type) {
+export function doSaveFile(value, name, fileType, type = 'text/plain;charset=utf-8') {
   let blob
-  type = type || 'text/plain;charset=utf-8'
   fileType = fileType || 'json'
   name = name + '.' + fileType
 
