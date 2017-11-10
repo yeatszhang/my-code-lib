@@ -1,27 +1,39 @@
+// 安全打开url连接，避免window.open造成的性能问题
 export function safeOpen (url) {
-  const otherWindow = window.open()
-  otherWindow.opener = null
-  otherWindow.location = url
+  let $a = document.createElement('a')
+  $a.setAttribute('href', url)
+  $a.setAttribute('noopener', true)
+  $a.addEventListener('click', function () {
+    $a = null
+  })
+  $a.click()
 }
 
 /**
  * 字符串导出为文件
- * @param value {string} 待写入的文件内容
- * @param name {string} 文件名
- * @param fileType {string} 文件后缀名
- * @param {string} type=text/plain;charset=utf-8 - 字符编码  导入为excel默认编码应该是utf-16
+ * @param {string} value - 需写入的文件内容
+ * @param {string} name - 文件名
+ * @param {string} fileType='json' - 文件后缀名
+ * @param {string} type='text/plain;charset=utf-8' - 字符编码  导入为excel默认编码应该是utf-16
  */
-export function doSaveFile(value, name, fileType, type = 'text/plain;charset=utf-8') {
+export function doSaveFile(value, name, fileType = 'json', type = 'text/plain;charset=utf-8') {
   let blob
   fileType = fileType || 'json'
   name = name + '.' + fileType
 
+  // 如果数据为空，会出现生成乱码的情况  可以通过将value设置为空格接解决' '
+  if (!value) {
+    value = ' '
+  }
+
   if (typeof window.Blob === 'function') {
+    // 用于解决excel打开后中文乱码问题
     const BOM = '\uFEFF'
     blob = new Blob([BOM + value], {
       type: type
     })
   } else {
+    // 兼容处理
     var BlobBuilder = window.BlobBuilder || window.MozBlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder
     var bb = new BlobBuilder()
     bb.append(value)
@@ -39,6 +51,8 @@ export function doSaveFile(value, name, fileType, type = 'text/plain;charset=utf
     evt.initEvent('click', false, false)
     anchor.dispatchEvent(evt)
     document.body.removeChild(anchor)
+    // 销毁创建的Url对象
+    URL.revokeObjectURL(bloburl)
   } else if (navigator.msSaveBlob) {
     navigator.msSaveBlob(blob, name)
   } else {
